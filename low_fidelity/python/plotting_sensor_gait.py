@@ -12,15 +12,15 @@ ax1 = fig.add_subplot(3, 1, 1)
 ax2 = fig.add_subplot(3, 1, 2)
 ax3 = fig.add_subplot(3, 1, 3)
 
-graphX, = ax1.plot([], [], 'b', label = 'X')
-graphY, = ax2.plot([], [], 'r', label = 'Y')
-graphZ, = ax3.plot([], [], 'g', label = 'Z')
+graphX, = ax1.plot([], [], 'b', label = 'pitch')
+graphY, = ax2.plot([], [], 'r', label = 'roll')
+graphZ, = ax3.plot([], [], 'g', label = 'yaw')
 axes = [ax1, ax2, ax3]
 
 for ax in axes:
     ax.set_xlim(0, leng-1)
     ax.set_ylim(-2, 2)
-    ax.set_ylabel('Acceleration [G]')
+    ax.set_ylabel('Angle [deg]')
     ax.legend(loc='upper right')
     ax.grid(True)
 
