@@ -1,7 +1,5 @@
 #include <MPU6050.h>
 
-#include <MPU6050.h>
-
 /*
     MPU6050 Triple Axis Gyroscope & Accelerometer. Simple Accelerometer Example.
     Read more: http://www.jarzebski.pl/arduino/czujniki-i-sensory/3-osiowy-zyroskop-i-akcelerometr-mpu6050.html
@@ -14,6 +12,9 @@
 #include <MPU6050.h>
 
 MPU6050 mpu;
+int x_offset = 0;
+int y_offset = 0;
+int z_offset = 0;
 
 void setup() 
 {
@@ -63,14 +64,20 @@ void checkSettings()
     case MPU6050_RANGE_2G:             Serial.println("+/- 2 g"); break;
   }  
 
-//  Serial.print(" * Accelerometer offsets: ");
-//  Serial.print(mpu.getAccelOffsetX());
-//  Serial.print(" / ");
-//  Serial.print(mpu.getAccelOffsetY());
-//  Serial.print(" / ");
-//  Serial.println(mpu.getAccelOffsetZ());
-//  
-//  Serial.println();
+  Vector normAccel = mpu.readNormalizeAccel();
+  Serial.print(" * Accelerometer offsets: ");
+  x_offset = normAccel.XAxis;
+  y_offset = normAccel.YAxis;
+  z_offset = normAccel.ZAxis;
+  Serial.print(" XOffset = ");
+  Serial.print(x_offset);
+  Serial.print(" YOffset = ");
+  Serial.print(y_offset);
+  Serial.print(" ZOffset = ");
+  Serial.print(z_offset);
+  
+  
+  Serial.println();
 }
 
 void loop()
@@ -91,7 +98,14 @@ void loop()
   Serial.print(normAccel.YAxis);
   Serial.print(" Znorm = ");
   Serial.println(normAccel.ZAxis);
+
+   Serial.print(" Xnorm - Offset = ");
+  Serial.print(normAccel.XAxis - x_offset);
+  Serial.print(" Ynorm - Offset = ");
+  Serial.print(normAccel.YAxis - y_offset);
+  Serial.print(" Znorm - Offset = ");
+  Serial.println(normAccel.ZAxis - z_offset);
   
-  delay(10);
+  delay(1000);
 }
  
